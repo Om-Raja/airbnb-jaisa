@@ -1,0 +1,15 @@
+{
+  "name": "airbnb-type",
+  "version": "1.0.0",
+  "description": "This is my first full-stack project. I'm making this along with the course DELTA 3.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Om Raja",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}
