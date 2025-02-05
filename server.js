@@ -11,37 +11,26 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-// //database connection
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderLust";
-// async function main(){
-//     await mongoose.connect(MONGO_URL);
-// }
-// main().then(()=>{
-//     console.log("Database connnected successfully");
-// }).catch((err)=>{
-//     console.log(err);
-// });
+//database connection
+const MONGO_URL = "mongodb://127.0.0.1:27017/wanderLust";
+async function main(){
+    await mongoose.connect(MONGO_URL);
+}
+main().then(()=>{
+    console.log("Database connnected successfully");
+}).catch((err)=>{
+    console.log(err);
+});
 
 //APIs
 app.get("/", (req, res)=>{
     res.send("I'm groot");
 });
 
-app.get("/testListing", async(req, res)=>{
-    const sampleListing = new Listing({
-        title: "My new villa",
-        description: "Next to marine drive",
-        price: 1200,
-        location:"Mumbai",
-        country: "India",
-    });
-
-    await sampleListing.save().then((res)=>{
-        console.log(res);
-    }).catch((err)=>{
-        console.log(err);
-    });
-    res.send("Data saved");
+app.get("/listings", async (req, res)=>{
+    const allListing = await Listing.find({});
+    // res.send("working");
+    res.render("listings/index.ejs", {allListing});
 });
 
 
