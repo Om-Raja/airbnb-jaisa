@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path"); // no need to install
+const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing");
 const app = express();
@@ -9,6 +10,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 
 
 //database connection
@@ -39,6 +41,15 @@ app.post("/listings", async (req, res)=>{
     
     res.redirect("/listings");
 });
+app.put("/listings/:id", async(req, res)=>{
+    const {id} = req.params;
+    const newListing = req.body.listing;
+    const list = await Listing.findByIdAndUpdate(id, {...newListing}); //destrucured
+
+    //redirecting to show route
+    res.redirect(`/listings/${id}`);
+
+})
 
 //create route
 
@@ -48,11 +59,17 @@ app.get("/listings/new", (req, res)=>{
 });
 
 //show route
-app.get("/listing/:id", async(req, res)=>{
+app.get("/listings/:id", async(req, res)=>{
     const {id} = req.params;
     let list = await Listing.findById(id);
     res.render("listings/show.ejs", {list});
-})
+});
+
+app.get("/listings/:id/edit", async (req, res)=>{
+    const {id} = req.params;
+    const list = await Listing.findById(id);
+    res.render("listings/edit.ejs", {list});
+});
 
 
 
