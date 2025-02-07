@@ -13,16 +13,16 @@ const listingSchema = new Schema({
     description:{
         type: String,
     },
-    image:{
-        type: imageSchema,
-        default: {
-            filename: "testImage",
-            url: "https://unsplash.com/photos/a-man-standing-on-top-of-a-mountain-next-to-a-lake-BcWAKeBRbvE",
-        },
-        // set: (v)=>{
-        //     return (v === "")?"https://unsplash.com/photos/a-man-standing-on-top-of-a-mountain-next-to-a-lake-BcWAKeBRbvE":v
-        // },
-    },
+    // image:{
+    //     type: imageSchema,
+    //     default: {
+    //         filename: "testImage",
+    //         url: "https://unsplash.com/photos/a-man-standing-on-top-of-a-mountain-next-to-a-lake-BcWAKeBRbvE",
+    //     },
+    //     // set: (v)=>{
+    //     //     return (v === "")?"https://unsplash.com/photos/a-man-standing-on-top-of-a-mountain-next-to-a-lake-BcWAKeBRbvE":v
+    //     // },
+    // },
     price:{
         type: Number,
     },

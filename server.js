@@ -27,11 +27,32 @@ app.get("/", (req, res)=>{
     res.send("I'm groot");
 });
 
+//index route
 app.get("/listings", async (req, res)=>{
     const allListing = await Listing.find({});
     // res.send("working");
     res.render("listings/index.ejs", {allListing});
 });
+app.post("/listings", async (req, res)=>{
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    
+    res.redirect("/listings");
+});
+
+//create route
+
+// written before /listing/:id otherwise server would consider 'new' is an id
+app.get("/listings/new", (req, res)=>{
+    res.render("listings/new.ejs");
+});
+
+//show route
+app.get("/listing/:id", async(req, res)=>{
+    const {id} = req.params;
+    let list = await Listing.findById(id);
+    res.render("listings/show.ejs", {list});
+})
 
 
 

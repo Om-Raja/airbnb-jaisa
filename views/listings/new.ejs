@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust</title>
+</head>
+<body>
+    <h3>Add New Place</h3>
+    <!--This way we can send all data in form of an object-->
+    <form method="POST" action="/listings">
+        <input type="text" name="listing[title]" placeholder="title">
+        <br><br>
+        <textarea name="listing[description]" placeholder="description" rows="10" cols="35"></textarea>
+        <br><br>
+        <input type="text" name="listing[image]" placeholder="image URL/link">
+        <br><br>
+        <input type="number" name="listing[price]" placeholder="price">
+        <br><br>
+        <input type="text" name="listing[location]" placeholder="location">
+        <br><br>
+        <input type="text" name="listing[country]" placeholder="country">
+        <br><br>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

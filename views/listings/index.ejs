@@ -7,9 +7,10 @@
   </head>
   <body>
     <h3>All Listings</h3>
+    <a href="/listings/new">Add new place</a>
     <ul>
       <% for(listing of allListing){ %>
-        <li><a href="/listing/:<%= listing._id %>"><%= listing.title %></a></li>
+        <li><a href="/listing/<%= listing._id %>"><%= listing.title %></a></li>
         <%}%>
     </ul>
   </body>
