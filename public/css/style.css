@@ -1,0 +1,99 @@
+body{
+    background-color: rgb(236, 236, 236);
+    font-family: "Plus Jakarta Sans", serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+h2,h5{
+    text-align: center;
+}
+.container{
+    flex: 1;
+}
+.fa-compass{
+    color:#ff5a5f;
+}
+.add-btn{
+    background-color: #ff5a5f !important;
+    color: #fff !important;
+}
+.listing{
+    list-style-type: none;
+}
+.listing a{
+    text-decoration: none;
+    color: rgb(189, 32, 32);
+}
+.title-show-route{
+    color: rgb(189, 32, 32);
+}
+
+/* footer */
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-color: #dcdee0;
+    padding: 10px 0;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+.footer-info-socials {
+    display: flex;
+    justify-content: center;
+    font-size: 1.4rem;
+    width: 100%;
+}
+.footer-info-socials i {
+    margin: 0 4px;
+    cursor: pointer;
+}
+.footer-info-terms a {
+    width: 100%;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #000;
+}
+.footer-info-company-tag {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* cards */
+.list-cards{
+    text-decoration: none;
+}
+.card{
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 20px;
+}
+.row{
+    margin: 0 20px;
+    height: 530px;
+}
+.card-img-top{
+    border-radius: 20px;
+    height: 350px;
+    object-fit: cover;
+}
+.card-body{
+    padding: 0;
+}
+.card-img-overlay{
+    background-color: aliceblue;
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+}

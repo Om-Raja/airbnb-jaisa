@@ -1,27 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout("/layouts/boilerplate") -%>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=list.title%></title>
+  <title><%= list.title %></title>
 </head>
 <body>
-    <h3><%=list.title%></h3>
-    <h3>Edit place details</h3>
-    <!--This way we can send all data in form of an object-->
-    <form method="POST" action="/listings/<%=list._id%>?_method=PUT">
-        <input type="text" name="listing[title]" value="<%=list.title%>">
-        <br><br>
-        <textarea name="listing[description]" rows="10" cols="35"><%=list.description%></textarea>
-        <br><br>
-        <input type="text" name="listing[image]" value="<%=list.image%>">
-        <br><br>
-        <input type="number" name="listing[price]" value="<%=list.price%>">
-        <br><br>
-        <input type="text" name="listing[location]" value="<%=list.location%>">
-        <br><br>
-        <input type="text" name="listing[country]" value="<%=list.country%>">
-        <br><br>
-        <button type="submit">Add</button>
+  <h2><%=list.title%></h2>
+  <h5>Edit place details</h5>
+  <!--This way we can send all data in form of an object-->
+  <div class="rows">
+    <div class="col-8 offset-2">
+      <form method="POST" action="/listings/<%=list._id%>?_method=PUT">
+        <div class="mb-2">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="listing[title]"
+            value="<%=list.title%>"
+          />
+        </div>
+        <div class="mb-2">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            name="listing[description]"
+            rows="2"
+            cols="35"
+          >
+<%=list.description%></textarea
+          >
+        </div>
+        <div class="mb-2">
+          <label for="image" class="form-label">Image link</label>
+          <input
+            type="text"
+            class="form-control"
+            name="listing[image]"
+            value="<%=list.image%>"
+          />
+        </div>
+        <div class="mb-2">
+          <label for="price" class="form-label">Price</label>\
+          <input
+            type="number"
+            class="form-control"
+            name="listing[price]"
+            value="<%=list.price%>"
+          />
+        </div>
+        <div class="mb-2">
+          <label for="location" class="form-label">Location</label>
+          <input
+            type="text"
+            class="form-control"
+            name="listing[location]"
+            value="<%=list.location%>"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="country" class="form-label">Country</label>
+          <input
+            type="text"
+            class="form-control"
+            name="listing[country]"
+            value="<%=list.country%>"
+          />
+        </div>
+        <button type="submit" class="btn add-btn">Save</button>
+      </form>
+    </div>
+  </div>
 </body>
-</html>
