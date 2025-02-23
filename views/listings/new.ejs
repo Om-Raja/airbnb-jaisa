@@ -1,15 +1,22 @@
 <% layout("layouts/boilerplate") %>
 <div class="row">
-    <div class="col-8 offset-2">
-
-  <h3>Add New Place</h3>
-  <!--This way we can send all data in form of an object-->
-  <form method="POST" action="/listings">
-    <div class="mb-2">
+  <div class="col-8 offset-2">
+    <h3>Add New Place</h3>
+    <!--This way we can send all data in form of an object-->
+    <form method="POST" action="/listings" novalidate class="needs-validation">
+      <div class="mb-2">
         <label for="title" class="form-label"></label>
-        <input type="text" name="listing[title]" placeholder="A catchy title" class="form-control"/>
-    </div>
-    <div class="mb-2">
+        <input
+          required
+          type="text"
+          name="listing[title]"
+          placeholder="A catchy title"
+          class="form-control"
+        />
+        <div class="valid-feedback">Title looks good !</div>
+        <div class="invalid-feedback">Title cannot be left empty ⚠️</div>
+      </div>
+      <div class="mb-2">
         <label for="description" class="form-label">Description</label>
         <textarea
           name="listing[description]"
@@ -17,30 +24,59 @@
           rows="2"
           cols="32"
           class="form-control"
+          required
         ></textarea>
-    </div>
+        <!-- <div class="valid-feedback">Well described !</div> -->
+        <div class="invalid-feedback">Provide some description please ⚠️</div>
+      </div>
 
-    <div class="mb-2">
+      <div class="mb-2">
         <label for="image" class="form-label">Image link</label>
-        <input class="form-control" type="text" name="listing[image]" placeholder="enter image URL/link" />
-    </div>
-    <div class="mb-2">
+        <input
+          class="form-control"
+          type="text"
+          name="listing[image]"
+          placeholder="enter image URL/link"
+        />
+        <div class="invalid-feedback">Image link required ⚠️</div>
+      </div>
+      <div class="mb-2">
         <label for="price" class="form-label">Price</label>
-        <input type="number" name="listing[price]" placeholder="120000" class="form-control" />
-    </div>
-     
-         <div class="mb-2">
-             <label for="location" class="form-label">Location</label>
-             <input class="form-control" type="text" name="listing[location]" placeholder="enter location" />
-         </div>
-     
-         <div class="mb-2">
-             <label for="country" class="form-label">Country</label>
-             <input class="form-control" type="text" name="listing[country]" placeholder="enter country"/>
-         </div>
-     
-    <button class="btn add-btn">Add</button>
-  </form>
+        <input
+          required
+          type="number"
+          name="listing[price]"
+          placeholder="120000"
+          class="form-control"
+        />
+        <div class="invalid-feedback">Is it Free? 🤔💭</div>
+      </div>
 
-</div>
+      <div class="mb-2">
+        <label for="location" class="form-label">Location</label>
+        <input
+          required
+          class="form-control"
+          type="text"
+          name="listing[location]"
+          placeholder="enter location"
+        />
+        <div class="invalid-feedback">The place must be somewhere. Right? 📌</div>
+      </div>
+
+      <div class="mb-2">
+        <label for="country" class="form-label">Country</label>
+        <input
+          required
+          class="form-control"
+          type="text"
+          name="listing[country]"
+          placeholder="enter country"
+        />
+        <div class="invalid-feedback">What country is it in? 🌏</div>
+      </div>
+
+      <button class="btn add-btn">Add</button>
+    </form>
+  </div>
 </div>
