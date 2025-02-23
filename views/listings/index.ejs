@@ -1,9 +1,4 @@
 <% layout("layouts/boilerplate") -%>
-  <head>
-    <title>WanderLust</title>
-  </head>
-  <body>
-    <h3>All Listings</h3>
     <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
       <% for(listing of allListing){ %>
         <a class="list-cards" href="/listings/<%= listing._id %>">
@@ -17,6 +12,4 @@
         </div>
       </a>
         <%}%>
-    </div>
-  </body>
 
