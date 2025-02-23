@@ -32,7 +32,7 @@ h2,h5{
 /* footer */
 .footer {
     position: fixed;
-    bottom: 0;
+    top: 100%;
     left: 0;
     width: 100%;
     background-color: #dcdee0;
@@ -76,6 +76,7 @@ h2,h5{
     margin-bottom: 10px;
     border: none;
     border-radius: 20px;
+    padding: 2px 5px;
 }
 .row{
     margin: 0 20px;
@@ -95,4 +96,12 @@ h2,h5{
 }
 .card-img-overlay:hover{
     opacity: 0.2;
+}
+
+/* show route */
+.btns{
+    display: flex;
+}
+.btns a{
+    margin-right: 8px;
 }
