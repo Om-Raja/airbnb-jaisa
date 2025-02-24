@@ -4,6 +4,9 @@ const methodOverride = require("method-override");
 const engine = require("ejs-mate");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing");
+const asyncWrapper = require("./utils/asyncWrapper")
+const expressError = require("./utils/expressError")
+
 const app = express();
 
 //configuration
@@ -39,12 +42,14 @@ app.get("/listings", async (req, res) => {
   // res.send("working");
   res.render("listings/index.ejs", { allListing });
 });
-app.post("/listings", async (req, res) => {
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
+app.post("/listings", asyncWrapper(async (req, res, next) => {
+  if(!req.body.listing) throw new expressError(400, "You did not send us your information. Try again!");
 
-  res.redirect("/listings");
-});
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+  
+    res.redirect("/listings");
+}));
 
 //create route
 // written before /listing/:id otherwise server would consider 'new' is an id
@@ -53,34 +58,51 @@ app.get("/listings/new", (req, res) => {
 });
 
 //show route
-app.get("/listings/:id", async (req, res) => {
+app.get("/listings/:id", asyncWrapper(async (req, res) => {
   const { id } = req.params;
   let list = await Listing.findById(id);
   res.render("listings/show.ejs", { list });
-});
+}));
 
 //edit route
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit", asyncWrapper(async (req, res) => {
   const { id } = req.params;
   const list = await Listing.findById(id);
   res.render("listings/edit.ejs", { list });
-});
+}));
 
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id", asyncWrapper(async (req, res) => {
+
+  if(!req.body.listing) throw new expressError(400, "You haven't filled the data completely");
+
   const { id } = req.params;
   const newListing = req.body.listing;
   const list = await Listing.findByIdAndUpdate(id, { ...newListing }); //destrucured
 
   //redirecting to show route
   res.redirect(`/listings/${id}`);
-});
+}));
 
 //delete route
-app.delete("/listings/:id", async (req, res) => {
+app.delete("/listings/:id", asyncWrapper(async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
+}));
+
+//ERROR 404 page not found error handling middleware
+app.all("*", (req, res, next)=>{
+  next(new expressError(404, "Page not found!"));
 });
+
+//error handling middleware
+app.use((err, req, res, next) => {
+  //first deconstruct the error object that we recieved from error handling middlewares
+  const {name, status = 500, message = "Something went WRONG!"} = err;
+  console.log(name);
+
+  res.status(status).send(message);
+})
 
 // starting server
 app.listen(8080, () => {

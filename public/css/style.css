@@ -68,6 +68,9 @@ h2,h5{
     margin-top: 10px;
 }
 
+.form-label{
+    color:#464646;
+}
 /* cards */
 .list-cards{
     text-decoration: none;
