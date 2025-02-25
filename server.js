@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing");
 const asyncWrapper = require("./utils/asyncWrapper")
 const expressError = require("./utils/expressError")
+const listingSchema = require("./utils/listingSchema")
 
 const app = express();
 
@@ -36,15 +37,25 @@ app.get("/", (req, res) => {
   res.send("I'm groot");
 });
 
+//validate middleware
+const validateListing = (req, res, next)=>{
+  const {value, error} = listingSchema.validate(req.body.listing)
+  if(error) throw new expressError(400, error);
+   else next();
+}
+
 //index route
 app.get("/listings", async (req, res) => {
   const allListing = await Listing.find({});
   // res.send("working");
   res.render("listings/index.ejs", { allListing });
 });
-app.post("/listings", asyncWrapper(async (req, res, next) => {
-  if(!req.body.listing) throw new expressError(400, "You did not send us your information. Try again!");
+app.post("/listings", validateListing, asyncWrapper(async (req, res, next) => {
+  // if(!req.body.listing) throw new expressError(400, "You did not send us your information. Try again!");
 
+  // const {value, error} = listingSchema.validate(req.body.listing);
+  // if(error) throw new expressError(400, error);
+  
     const newListing = new Listing(req.body.listing);
     await newListing.save();
   
@@ -71,9 +82,9 @@ app.get("/listings/:id/edit", asyncWrapper(async (req, res) => {
   res.render("listings/edit.ejs", { list });
 }));
 
-app.put("/listings/:id", asyncWrapper(async (req, res) => {
+app.put("/listings/:id", validateListing, asyncWrapper(async (req, res) => {
 
-  if(!req.body.listing) throw new expressError(400, "You haven't filled the data completely");
+  // if(!req.body.listing) throw new expressError(400, "You haven't filled the data completely");
 
   const { id } = req.params;
   const newListing = req.body.listing;
@@ -99,7 +110,7 @@ app.all("*", (req, res, next)=>{
 app.use((err, req, res, next) => {
   //first deconstruct the error object that we recieved from error handling middlewares
   const {name, status = 500, message = "Something went WRONG!"} = err;
-  console.log(name);
+  // console.log(name);
 
   res.status(status).render("error.ejs", {message});
 })
