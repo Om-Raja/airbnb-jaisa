@@ -108,3 +108,28 @@ h2,h5{
 .btns a{
     margin-right: 8px;
 }
+
+.alert{
+ margin-top: 30px;
+ animation-name: alert;
+ animation-duration: 0.4s;
+}
+
+@keyframes alert{
+    0%{
+        position: relative;
+        top: 1000px;
+    }
+    25%{
+        top: 750px;
+    }
+    50%{
+        top: 500px;
+    }
+    75%{
+        top: 250px;
+    }
+    100%{
+        top: 30px;
+    }
+}

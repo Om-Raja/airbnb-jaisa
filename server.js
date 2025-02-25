@@ -101,7 +101,7 @@ app.use((err, req, res, next) => {
   const {name, status = 500, message = "Something went WRONG!"} = err;
   console.log(name);
 
-  res.status(status).send(message);
+  res.status(status).render("error.ejs", {message});
 })
 
 // starting server
