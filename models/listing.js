@@ -27,7 +27,11 @@ const listingSchema = new Schema({
     country:{
         type:String,
         required: true,
-    }
+    },
+    reviews:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Review', //No, you do not need to import the Review model in the listing.js file to use it as a reference in the schema
+    }],
 });
 
 //model

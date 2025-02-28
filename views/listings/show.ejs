@@ -31,6 +31,19 @@
         </div>
     </div>
   </div>
+
+  <div class="review">
+    <form action="/listings/<%= list._id %>/review" method="POST">
+      <label for="rating" class="form-label">Rating</label>
+      <input type="range" min="0" max="5" class="form-range" name="review[rating]">
+
+      <label for="comment" class="form-label">Comment</label>
+      <textarea name="review[comment]" id="comment" class="form-control"></textarea>
+
+      <button>Submit</button>
+    </form>
+  </div>
+
 </div>
 </div>
 </body>

@@ -4,9 +4,10 @@ const methodOverride = require("method-override");
 const engine = require("ejs-mate");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing");
-const asyncWrapper = require("./utils/asyncWrapper")
-const expressError = require("./utils/expressError")
-const listingSchema = require("./utils/listingSchema")
+const asyncWrapper = require("./utils/asyncWrapper");
+const expressError = require("./utils/expressError");
+const listingSchema = require("./utils/listingSchema");
+const Review = require("./models/reviews");
 
 const app = express();
 
@@ -100,6 +101,21 @@ app.delete("/listings/:id", asyncWrapper(async (req, res) => {
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
 }));
+
+//review route
+app.post("/listings/:id/review", asyncWrapper(async (req, res, next)=>{
+  const {id} = req.params;
+  const newReview = new Review(req.body.review);
+  let list = await Listing.findById(id);
+  list.reviews.push(newReview);
+
+  await newReview.save();
+  await list.save();
+
+  res.redirect(`/listings/${id}`);
+}
+
+))
 
 //ERROR 404 page not found error handling middleware
 app.all("*", (req, res, next)=>{
