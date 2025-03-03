@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing");
 const asyncWrapper = require("./utils/asyncWrapper");
 const expressError = require("./utils/expressError");
-const listingSchema = require("./utils/listingSchema");
+const {listingSchema, reviewSchema} = require("./utils/joiSchema");
 const Review = require("./models/reviews");
 
 const app = express();
@@ -40,9 +40,14 @@ app.get("/", (req, res) => {
 
 //validate middleware
 const validateListing = (req, res, next)=>{
-  const {value, error} = listingSchema.validate(req.body.listing)
+  const {value, error} = listingSchema.validate(req.body);
   if(error) throw new expressError(400, error);
    else next();
+}
+const validateReview = (req, res, next) =>{
+  const {value, error} = reviewSchema.validate(req.body);
+  if(error) throw new expressError(400, error);
+  else next();
 }
 
 //index route
@@ -72,7 +77,7 @@ app.get("/listings/new", (req, res) => {
 //show route
 app.get("/listings/:id", asyncWrapper(async (req, res) => {
   const { id } = req.params;
-  let list = await Listing.findById(id);
+  let list = await Listing.findById(id).populate("reviews");
   res.render("listings/show.ejs", { list });
 }));
 
@@ -103,7 +108,7 @@ app.delete("/listings/:id", asyncWrapper(async (req, res) => {
 }));
 
 //review route
-app.post("/listings/:id/review", asyncWrapper(async (req, res, next)=>{
+app.post("/listings/:id/review", validateReview, asyncWrapper(async (req, res, next)=>{
   const {id} = req.params;
   const newReview = new Review(req.body.review);
   let list = await Listing.findById(id);
@@ -114,8 +119,15 @@ app.post("/listings/:id/review", asyncWrapper(async (req, res, next)=>{
 
   res.redirect(`/listings/${id}`);
 }
-
 ))
+// review delete route
+app.delete("/listings/:id/review/:reviewId", asyncWrapper(async function(req, res, next){
+  const {id, reviewId} = req.params;
+  await Review.findByIdAndDelete(reviewId);
+  await Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
+
+  res.redirect(`/listings/${id}`);
+}))
 
 //ERROR 404 page not found error handling middleware
 app.all("*", (req, res, next)=>{

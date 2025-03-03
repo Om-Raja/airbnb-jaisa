@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Review = require("./reviews");
 const Schema = mongoose.Schema;
 
 const imageSchema = new Schema({
@@ -32,6 +33,12 @@ const listingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Review', //No, you do not need to import the Review model in the listing.js file to use it as a reference in the schema
     }],
+});
+
+//post hook / mongoose middleware
+listingSchema.post("findOneAndDelete", async function(listing){
+    if(listing) await Review.deleteMany({_id: {$in: listing.reviews}});
+    
 });
 
 //model
