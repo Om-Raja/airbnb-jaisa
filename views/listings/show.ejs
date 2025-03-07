@@ -15,7 +15,7 @@
         <div class="card-body">
           <p class="card-text">
             <%=list.description%><br />
-            <%=list.price%><br />
+            &#8377;<%=list.price.toLocaleString("en-IN")%> per night<br />
             <%=list.location%><br />
             <%=list.country%><br />
           </p>
@@ -31,6 +31,28 @@
       </div>
       <hr />
 
+      
+      <!-- review show section -->
+      <div>
+        <p><b>All reviews</b></p>
+      </p>
+      <div class="rows all-reviews">
+        <% for(review of list.reviews){ %>
+          <div class="card col-5 mb-3 review">
+            <div class="card-body">
+              <h5 class="card-title">username</h5>
+                <h6 class="card-subtitle text-muted mb-3"><%= review.rating %>⭐</h6>
+                <p class="card-text"><%= review.comment%></p>
+                <form method="POST" action="/listings/<%=list._id%>/review/<%=review._id%>?_method=DELETE">
+                  <button class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+            <%}%>
+        </div>
+      </div>
+      <hr/>
+      <!-- review section -->
       <div class="add-review mt-3">
         <h4>Leave a review</h4>
         <form
@@ -49,7 +71,7 @@
               name="review[rating]"
             />
           </div>
-
+      
           <div class="mb-3 mt-3">
             <label for="comment" class="form-label">Comment</label>
             <textarea
@@ -62,31 +84,11 @@
               Please add some comment for review
             </div>
           </div>
-
+      
           <button class="btn btn-outline-primary mb-3 mt-3">Submit</button>
         </form>
       </div>
-
-      <hr/>
-
-      <div>
-        <p><b>All reviews</b></p>
-        </p>
-        <div class="rows all-reviews">
-          <% for(review of list.reviews){ %>
-            <div class="card col-5 mb-3 review">
-              <div class="card-body">
-                <h5 class="card-title">username</h5>
-                <h6 class="card-subtitle text-muted mb-3"><%= review.rating %>⭐</h6>
-                <p class="card-text"><%= review.comment%></p>
-                <form method="POST" action="/listings/<%=list._id%>/review/<%=review._id%>?_method=DELETE">
-                  <button class="btn btn-danger">Delete</button>
-                </form>
-              </div>
-            </div>
-            <%}%>
-        </div>
-      </div>
+      
     </div>
   </div>
 </body>
