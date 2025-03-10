@@ -152,3 +152,9 @@ h2,h5{
 .card-title{
     text-align: start;
 }
+
+/* alert */
+.alert-dismissable{
+    display: flex;
+    justify-content: space-between;
+}
