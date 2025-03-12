@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/user");
 const asyncWrapper = require("../utils/asyncWrapper");
 const passport = require("passport");
+const {isLoggedIn} = require("../utils/middlewares");
 
 //signup
 router.get("/signup", (req, res)=>{
@@ -33,4 +34,14 @@ router.post("/login", passport.authenticate("local", {failureRedirect: "/login",
     res.redirect("/listings");
 }));
 
+//logout
+router.get("/logout", isLoggedIn, (req, res, next)=>{
+    req.logout((err)=>{
+        if(err){
+            return next(err);
+        }
+        req.flash("success", "Logged out");
+        res.redirect("/listings");
+    })
+})
 module.exports = router;

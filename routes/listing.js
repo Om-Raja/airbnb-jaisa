@@ -4,6 +4,7 @@ const Listing = require("../models/listing");
 const asyncWrapper = require("../utils/asyncWrapper");
 const expressError = require("../utils/expressError");
 const {listingSchema} = require("../utils/joiSchema");
+const {isLoggedIn} = require("../utils/middlewares");
 
 
 const validateListing = (req, res, next) => {
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post(
-  "/",
+  "/", isLoggedIn, 
   validateListing,
   asyncWrapper(async (req, res, next) => {
     // if(!req.body.listing) throw new expressError(400, "You did not send us your information. Try again!");
@@ -36,13 +37,13 @@ router.post(
 
 //create route
 // written before /listing/:id otherwise server would consider 'new' is an id
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("listings/new.ejs");
 });
 
 //show route
 router.get(
-  "/:id",
+  "/:id", 
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     let list = await Listing.findById(id).populate("reviews");
@@ -56,7 +57,7 @@ router.get(
 
 //edit route
 router.get(
-  "/:id/edit",
+  "/:id/edit", isLoggedIn, 
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     const list = await Listing.findById(id);
@@ -68,7 +69,7 @@ router.get(
   }),
 );
 
-router.put("/:id", validateListing, asyncWrapper(async (req, res) => {
+router.put("/:id", isLoggedIn, validateListing, asyncWrapper(async (req, res) => {
     // if(!req.body.listing) throw new expressError(400, "You haven't filled the data completely");
 
     const { id } = req.params;
@@ -82,7 +83,7 @@ router.put("/:id", validateListing, asyncWrapper(async (req, res) => {
 
 //delete route
 router.delete(
-  "/:id",
+  "/:id", isLoggedIn, 
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndDelete(id);
