@@ -33,6 +33,10 @@ const listingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Review', //No, you do not need to import the Review model in the listing.js file to use it as a reference in the schema
     }],
+    owner:{
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    }
 });
 
 //post hook / mongoose middleware
