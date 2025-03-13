@@ -48,9 +48,11 @@ passport.use(new LocalStrategy(User.authenticate())); //uses static authenticate
 passport.serializeUser(User.serializeUser()); // store session information of user
 passport.deserializeUser(User.deserializeUser()); // removes session information of user
 
+//res.local
 app.use(function(req, res, next){
   res.locals.successMsg = req.flash("success");
   res.locals.errorMsg = req.flash("error");
+  res.locals.currentUser = req.user;
   next();
 })
 

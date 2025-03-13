@@ -111,27 +111,30 @@ h2,h5{
 }
 
 .alert{
- margin-top: 30px;
+ /* margin-top: 30px; */
  animation-name: alert;
  animation-duration: 0.4s;
+ z-index: 5;
+ position: fixed;
+ right: 10px;
+ bottom: 80px;
 }
 
 @keyframes alert{
     0%{
-        position: relative;
-        top: 1000px;
+        bottom: 0;
     }
     25%{
-        top: 750px;
+        bottom: 20px;
     }
     50%{
-        top: 500px;
+        bottom: 40px;
     }
     75%{
-        top: 250px;
+        bottom: 60px;
     }
     100%{
-        top: 30px;
+        bottom: 80px;
     }
 }
 
@@ -157,4 +160,8 @@ h2,h5{
 .alert-dismissable{
     display: flex;
     justify-content: space-between;
+}
+
+.nav-link{
+    font-weight: 500;
 }
