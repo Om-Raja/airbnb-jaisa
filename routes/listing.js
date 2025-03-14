@@ -3,11 +3,12 @@ const router = express.Router();
 const Listing = require("../models/listing");
 const asyncWrapper = require("../utils/asyncWrapper");
 const expressError = require("../utils/expressError");
-const {listingSchema} = require("../utils/joiSchema");
-const {isLoggedIn, isListOwner, validateListing} = require("../utils/middlewares");
-
-
-
+const { listingSchema } = require("../utils/joiSchema");
+const {
+  isLoggedIn,
+  isListOwner,
+  validateListing,
+} = require("../utils/middlewares");
 
 //index route
 router.get("/", async (req, res) => {
@@ -17,7 +18,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post(
-  "/", isLoggedIn, 
+  "/",
+  isLoggedIn,
   validateListing,
   asyncWrapper(async (req, res, next) => {
     // if(!req.body.listing) throw new expressError(400, "You did not send us your information. Try again!");
@@ -40,12 +42,22 @@ router.get("/new", isLoggedIn, (req, res) => {
 
 //show route
 router.get(
-  "/:id", 
+  "/:id",
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
-    let list = await Listing.findById(id).populate("reviews").populate("owner");
-    if(!list){
-      req.flash("error", "Place you are requesting doesn't exist on this page!");
+    let list = await Listing.findById(id)
+      .populate("owner")
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "owner",
+        },
+      });
+    if (!list) {
+      req.flash(
+        "error",
+        "Place you are requesting doesn't exist on this page!",
+      );
       res.redirect("/listings");
     }
     res.render("listings/show.ejs", { list });
@@ -54,11 +66,13 @@ router.get(
 
 //edit route
 router.get(
-  "/:id/edit", isLoggedIn, isListOwner,
+  "/:id/edit",
+  isLoggedIn,
+  isListOwner,
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     const list = await Listing.findById(id);
-    if(!list){
+    if (!list) {
       req.flash("error", "This place doesn't exit on this page!");
       res.redirect("/listings");
     }
@@ -66,7 +80,12 @@ router.get(
   }),
 );
 
-router.put("/:id", isLoggedIn, isListOwner, validateListing, asyncWrapper(async (req, res) => {
+router.put(
+  "/:id",
+  isLoggedIn,
+  isListOwner,
+  validateListing,
+  asyncWrapper(async (req, res) => {
     // if(!req.body.listing) throw new expressError(400, "You haven't filled the data completely");
 
     const { id } = req.params;
@@ -80,7 +99,9 @@ router.put("/:id", isLoggedIn, isListOwner, validateListing, asyncWrapper(async 
 
 //delete route
 router.delete(
-  "/:id", isLoggedIn, isListOwner,
+  "/:id",
+  isLoggedIn,
+  isListOwner,
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndDelete(id);

@@ -23,7 +23,7 @@ router.post(
     const newReview = new Review(req.body.review);
     let list = await Listing.findById(id);
     list.reviews.push(newReview);
-    newReview.owner = req.user;
+    newReview.owner = req.user._id;
     await newReview.save();
     await list.save();
     req.flash("success", "Review added");
