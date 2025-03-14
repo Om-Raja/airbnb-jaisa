@@ -2,7 +2,7 @@ const asyncWrapper = require("./asyncWrapper");
 const Listing = require("../models/listing");
 const Review = require("../models/reviews");
 const expressError = require("./expressError");
-const {listingSchema} = require("./joiSchema");
+const {listingSchema, reviewSchema} = require("./joiSchema");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -47,3 +47,9 @@ module.exports.validateListing = (req, res, next) => {
   if (error) throw new expressError(400, error);
   else next();
 };
+
+module.exports.validateReview = (req, res, next) =>{
+  const {value, error} = reviewSchema.validate(req.body);
+  if(error) throw new expressError(400, error);
+  else next();
+}

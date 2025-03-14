@@ -5,14 +5,8 @@ const asyncWrapper = require("../utils/asyncWrapper");
 const expressError = require("../utils/expressError");
 const {reviewSchema} = require("../utils/joiSchema");
 const Review = require("../models/reviews");
-const {isLoggedIn, isReviewOwner} = require("../utils/middlewares");
+const {isLoggedIn, validateReview, isReviewOwner} = require("../utils/middlewares");
 
-//validate middleware
-const validateReview = (req, res, next) =>{
-  const {value, error} = reviewSchema.validate(req.body);
-  if(error) throw new expressError(400, error);
-  else next();
-}
 
 //review route
 router.post(
