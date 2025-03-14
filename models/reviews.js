@@ -12,6 +12,10 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
+  owner:{
+    type: Schema.Types.ObjectId,
+    ref: "User", //string form me model name
+  },
   createdAt: {
     type: Date,
     default: Date.now,

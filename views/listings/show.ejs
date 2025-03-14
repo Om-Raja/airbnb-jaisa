@@ -14,11 +14,13 @@
         />
         <div class="card-body">
           <p class="card-text">
+            <p><i style="font-size: 1.2rem" class="fa-solid fa-circle-user"></i> <i><%= list.owner.username%></i></p>
             <%=list.description%><br />
             &#8377;<%=list.price.toLocaleString("en-IN")%> per night<br />
             <%=list.location%><br />
             <%=list.country%><br />
           </p>
+          <% if(currentUser && currentUser._id.equals(list.owner._id)){ %> <!--if currentUser doesn't exist then currentUser._id will throw error so first check if currentUser exist or not-->
           <div class="btns mb-2">
             <a href="/listings/<%=list._id%>/edit" class="btn btn-secondary"
               >Edit</a
@@ -27,6 +29,7 @@
               <button class="btn btn-danger">Delete</button>
             </form>
           </div>
+          <% } %>
         </div>
       </div>
       <hr />
