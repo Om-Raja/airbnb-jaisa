@@ -47,7 +47,7 @@ router.get("/logout", isLoggedIn, (req, res, next)=>{
     })
 })
 
-router.get("/profile", (req, res)=>{
+router.get("/profile", isLoggedIn, (req, res)=>{
     res.render("user/profile.ejs");
 });
 
