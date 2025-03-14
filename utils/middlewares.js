@@ -1,5 +1,6 @@
 const asyncWrapper = require("./asyncWrapper");
 const Listing = require("../models/listing");
+const Review = require("../models/reviews");
 const expressError = require("./expressError");
 const {listingSchema} = require("./joiSchema");
 
@@ -29,6 +30,17 @@ module.exports.isListOwner = asyncWrapper(async (req, res, next) => {
   }
   next();
 });
+
+module.exports.isReviewOwner = asyncWrapper( async(req, res, next) => {
+  const {id, reviewId} = req.params;
+  const review = await Review.findById(reviewId);
+
+  if(!res.locals.currentUser._id.equals(review.owner._id)){
+    req.flash("error", "Only the owner of review can delete the review!");
+    return res.redirect(`/listings/${id}`);
+  }
+  next();
+})
 
 module.exports.validateListing = (req, res, next) => {
   const { value, error } = listingSchema.validate(req.body);

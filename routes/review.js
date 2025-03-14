@@ -5,7 +5,7 @@ const asyncWrapper = require("../utils/asyncWrapper");
 const expressError = require("../utils/expressError");
 const {reviewSchema} = require("../utils/joiSchema");
 const Review = require("../models/reviews");
-const {isLoggedIn} = require("../utils/middlewares");
+const {isLoggedIn, isReviewOwner} = require("../utils/middlewares");
 
 //validate middleware
 const validateReview = (req, res, next) =>{
@@ -34,7 +34,7 @@ router.post(
 
 // review delete route
 router.delete(
-  "/:reviewId", isLoggedIn, 
+  "/:reviewId", isLoggedIn, isReviewOwner,
   asyncWrapper(async function (req, res, next) {
     const { id, reviewId } = req.params;
     await Review.findByIdAndDelete(reviewId);
