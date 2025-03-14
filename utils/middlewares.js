@@ -1,6 +1,7 @@
 const asyncWrapper = require("./asyncWrapper");
 const Listing = require("../models/listing");
 const expressError = require("./expressError");
+const {listingSchema} = require("./joiSchema");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
