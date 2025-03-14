@@ -165,3 +165,14 @@ h2,h5{
 .nav-link{
     font-weight: 500;
 }
+
+/* profile */
+#profile-user-icon{
+    font-size: 15rem;
+}
+#profile-user{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}

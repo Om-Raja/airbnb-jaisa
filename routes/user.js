@@ -46,4 +46,9 @@ router.get("/logout", isLoggedIn, (req, res, next)=>{
         res.redirect("/listings");
     })
 })
+
+router.get("/profile", (req, res)=>{
+    res.render("user/profile.ejs");
+});
+
 module.exports = router;

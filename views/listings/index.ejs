@@ -1,15 +1,17 @@
 <% layout("layouts/boilerplate") -%>
-    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-2 mb-3">
-      <% for(listing of allListing){ %>
-        <a class="list-cards" href="/listings/<%= listing._id %>">
-          <div class="card">
-          <img class="card-img-top" src="<%=listing.image%>" alt="Card image cap">
-          <div class="card-img-overlay"></div>
-          <div class="card-body">
-            <p class="card-text"><b><%=listing.title%></b></p>
-            <p class="card-text">&#8377;<%=listing.price.toLocaleString("en-IN")%> per night</p>
-          </div>
-        </div>
-      </a>
-        <%}%>
-
+<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-2 mb-3">
+  <% for(listing of allListing){ %>
+  <a class="list-cards" href="/listings/<%= listing._id %>">
+    <div class="card">
+      <img class="card-img-top" src="<%=listing.image%>" alt="Card image cap" />
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <p class="card-text"><b><%=listing.title%></b></p>
+        <p class="card-text">
+          &#8377;<%=listing.price.toLocaleString("en-IN")%> per night
+        </p>
+      </div>
+    </div>
+  </a>
+  <%}%>
+</div>

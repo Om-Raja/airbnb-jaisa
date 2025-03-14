@@ -15,7 +15,9 @@
             <a href="/signup" class="nav-link">Sign Up</a>
             <a href="/login" style="color: rgb(50, 136, 50)" class="nav-link">Login</a>
           <% }else{ %>
+            <a href="/profile" class="nav-link"><i class="fa-solid fa-user"></i><%=currentUser.username%></a>
             <a href="/logout" style="color: rgb(226, 77, 77)" class="nav-link">Logout</a>
+
           <% } %>
 
         </div>
