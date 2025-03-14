@@ -5,19 +5,21 @@ const passport = require("passport");
 const {isLoggedIn, saveRedirectUrl} = require("../utils/middlewares");
 const userController = require("../controllers/user");
 
-//signup
-router.get("/signup", userController.getSignUpForm);
+// signup
+router.route("/signup")
+.get(userController.getSignUpForm)
+.post(asyncWrapper(userController.signUp));
 
-router.post("/signup", asyncWrapper(userController.signUp));
+// login
+router.route("/login")
+.get(userController.getLoginForm)
+.post(saveRedirectUrl, passport.authenticate("local", {failureRedirect: "/login", failureFlash: true}), asyncWrapper(userController.postLoginTask))
 
-//login
-router.get("/login", userController.getLoginForm);
 
-router.post("/login", saveRedirectUrl, passport.authenticate("local", {failureRedirect: "/login", failureFlash: true}), asyncWrapper(userController.postLoginTask));
-
-//logout
+// logout
 router.get("/logout", isLoggedIn, userController.logOut);
 
+// profile
 router.get("/profile", isLoggedIn, userController.getProfile);
 
 module.exports = router;
