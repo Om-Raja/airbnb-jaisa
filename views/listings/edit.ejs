@@ -13,6 +13,7 @@
         action="/listings/<%=list._id%>?_method=PUT"
         novalidate
         class="needs-validation"
+        enctype="multipart/form-data"
       >
         <div class="mb-2">
           <label for="name" class="form-label">Name</label>
@@ -39,13 +40,11 @@
           <div class="invalid-feedback">Description can't be empty</div>
         </div>
         <div class="mb-2">
-          <label for="image" class="form-label">Image link</label>
+          <label for="image" class="form-label">Image</label>
           <input
-            type="text"
+            type="file"
             class="form-control"
             name="listing[image]"
-            value="<%=list.image%>"
-            required
           />
           <div class="invalid-feedback">There must be an image 📸</div>
         </div>

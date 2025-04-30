@@ -2,8 +2,7 @@ const Joi = require("joi")
 module.exports.listingSchema = Joi.object({
     listing: Joi.object({
         title: Joi.string().required().min(3),
-        description: Joi.string().min(3).required(),
-        image: Joi.string().allow("", null),
+        description: Joi.string().min(3).required(),     
         price: Joi.number().required().min(1),
         location: Joi.string().required(),
         country: Joi.string().required(),

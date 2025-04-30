@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const dataObject = require("./data");
 const Listing = require("../models/listing");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderLust";
 async function main(){
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect("mongodb://127.0.0.1:27017/wanderLust");
 }
 main().then(()=>{
     console.log("Database connected successfully");

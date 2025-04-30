@@ -17,7 +17,14 @@ module.exports.addNewListing = async (req, res) => {
 
   // const {value, error} = listingSchema.validate(req.body);
   // if(error) throw new expressError(400, error);
+
   const newListing = new Listing(req.body.listing);
+
+  if(req.file){
+    newListing.image.url = req.file.path;
+    newListing.image.filename = req.file.filename;
+  }
+  
   newListing.owner = req.user._id;
   await newListing.save();
   req.flash("success", "New listing saved.");
@@ -59,7 +66,12 @@ module.exports.updateListing = async (req, res) => {
 
   const { id } = req.params;
   const newListing = req.body.listing;
-  await Listing.findByIdAndUpdate(id, { ...newListing }); //destrucured
+
+  if(req.file){
+    await Listing.findByIdAndUpdate(id, { ...newListing , image:{url: req.file.path, filename: req.file.filename}}); //destrucured
+  }else{
+    await Listing.findByIdAndUpdate(id, { ...newListing}); //destrucured
+  }
   req.flash("success", "List updated");
   //redirecting to show route
   res.redirect(`/listings/${id}`);

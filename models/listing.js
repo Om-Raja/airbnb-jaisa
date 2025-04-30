@@ -15,8 +15,8 @@ const listingSchema = new Schema({
         type: String,
     },
     image:{
-        type:String,
-        default: "https://media.istockphoto.com/id/531864277/photo/bandra-worli-sea-link.jpg?s=2048x2048&w=is&k=20&c=1eiA8c7XF-Tssv9AgxwGDHVQD8qUjDHHSZw85WkneJg=",
+        url: String,
+        filename: String,
     },
     price:{
         type: Number,

@@ -3,7 +3,7 @@
   <div class="col-8 offset-2">
     <h3>Add New Place</h3>
     <!--This way we can send all data in form of an object-->
-    <form method="POST" action="/listings" novalidate class="needs-validation">
+    <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
       <div class="mb-2">
         <label for="title" class="form-label">Title</label>
         <input
@@ -31,14 +31,13 @@
       </div>
 
       <div class="mb-2">
-        <label for="image" class="form-label">Image link</label>
+        <label for="image" class="form-label">Upload image</label>
         <input
           class="form-control"
-          type="text"
+          type="file"
           name="listing[image]"
-          placeholder="enter image URL/link"
         />
-        <div class="invalid-feedback">Image link required ⚠️</div>
+        <div class="invalid-feedback">Image required ⚠️</div>
       </div>
       <div class="mb-2">
         <label for="price" class="form-label">Price</label>
