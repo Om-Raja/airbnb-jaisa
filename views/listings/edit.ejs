@@ -39,14 +39,24 @@
           >
           <div class="invalid-feedback">Description can't be empty</div>
         </div>
-        <div class="mb-2">
-          <label for="image" class="form-label">Image</label>
-          <input
+
+
+        <div class="image-input-container">
+
+          <div class="imagePreview">
+            <p>Current image</p>
+            <img src="<%=compressedImageUrl%>" alt="Current-images" width="auto" height="130px">
+          </div>
+          
+          <div class="mb-2">
+            <label for="image" class="form-label">Add new image</label>
+            <input
             type="file"
             class="form-control"
             name="listing[image]"
-          />
-          <div class="invalid-feedback">There must be an image 📸</div>
+            />
+            <div class="invalid-feedback">There must be an image 📸</div>
+          </div>
         </div>
         <div class="mb-2">
           <label for="price" class="form-label">Price</label>

@@ -57,7 +57,10 @@ module.exports.editListing = async (req, res) => {
     req.flash("error", "This place doesn't exit on this page!");
     res.redirect("/listings");
   }
-  res.render("listings/edit.ejs", { list });
+  const compressedImageUrl = list.image.url.replace("/upload", "/upload/h_200,c_fill,q_auto,f_auto");
+  console.log(compressedImageUrl);
+  console.log(list.image.url);
+  res.render("listings/edit.ejs", { list, compressedImageUrl });
 };
 
 //update route

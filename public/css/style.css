@@ -176,3 +176,11 @@ h2,h5{
     justify-content: start;
     align-items: center;
 }
+
+/* edit form */
+.image-input-container{
+    margin: 30px 0;
+    border: 2px solid rgb(142, 141, 141);
+    border-radius: 5px;
+    padding: 10px;
+}
