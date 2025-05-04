@@ -13,6 +13,7 @@ const userRouter = require("./routes/user.js");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("connect-flash");
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
@@ -30,7 +31,20 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", engine);
 
 //session
+const store = MongoStore.create({
+  mongoUrl:"mongodb://127.0.0.1:27017/wanderLust",
+  crypto:{
+    secret: "mySuperSecret",
+  },
+  touchAfter: 24 * 60 * 60, // in seconds
+})
+
+store.on("error", ()=>{
+  console.log("Error in storing session in mongoStore\nError: ", err);
+});
+
 const sessionOptions = {
+  store,
   secret: "mySuperSecret",
   resave: false,
   saveUninitialized: true,
