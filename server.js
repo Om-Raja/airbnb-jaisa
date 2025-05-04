@@ -32,7 +32,7 @@ app.engine("ejs", engine);
 
 //session
 const store = MongoStore.create({
-  mongoUrl:"mongodb://127.0.0.1:27017/wanderLust",
+  mongoUrl: process.env.MONGO_URL,
   crypto:{
     secret: "mySuperSecret",
   },
@@ -78,9 +78,8 @@ app.use("/", userRouter);
 
 
 //database connection
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderLust";
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(process.env.MONGO_URL);
 }
 main()
   .then(() => {

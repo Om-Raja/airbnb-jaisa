@@ -3,7 +3,7 @@ const dataObject = require("./data");
 const Listing = require("../models/listing");
 
 async function main(){
-    await mongoose.connect("mongodb://127.0.0.1:27017/wanderLust");
+    await mongoose.connect(process.env.MONGO_URL);
 }
 main().then(()=>{
     console.log("Database connected successfully");
