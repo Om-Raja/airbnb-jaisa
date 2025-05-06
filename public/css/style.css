@@ -185,6 +185,13 @@ h2,h5{
     padding: 10px;
 }
 
+/* login page */
+#registerBtn{
+    position: relative;
+    left: 80px;
+    bottom: 53px;
+}
+
 /* responsiveness */
 @media(max-width: 576px){
     .row{

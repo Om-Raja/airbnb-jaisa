@@ -18,5 +18,12 @@
             <button class="btn btn-success mb-3">Log in</button>
             
         </form>
+        <button class="btn btn-outline-warning" id="registerBtn">Create an account</button>
+        <script>
+            const registerBtn = document.getElementById("registerBtn");
+            registerBtn.addEventListener("click", function(event){
+                window.location.href="/signup";
+            })
+        </script>
     </div>
 </div>
