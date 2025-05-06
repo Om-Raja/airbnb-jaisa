@@ -51,13 +51,18 @@ module.exports.showListing = async (req, res) => {
 
 //edit route
 module.exports.editListing = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params;  
   const list = await Listing.findById(id);
   if (!list) {
-    req.flash("error", "This place doesn't exit on this page!");
-    res.redirect("/listings");
+    req.flash("error", "This place doesn't exist on this page!");
+    return res.redirect("/listings");
   }
-  const compressedImageUrl = list.image.url.replace("/upload", "/upload/h_200,c_fill,q_auto,f_auto");
+  let compressedImageUrl = "";
+  try{
+    compressedImageUrl = list.image.url.replace("/upload", "/upload/h_200,c_fill,q_auto,f_auto");
+  }catch(err){
+    compressedImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/624px-No-Image-Placeholder.svg.png";
+  }
   res.render("listings/edit.ejs", { list, compressedImageUrl });
 };
 

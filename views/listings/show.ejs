@@ -1,4 +1,5 @@
 <% layout("layouts/boilerplate") %>
+<% let defaultImg = "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"%>
 <head>
   <title><%=list.title%></title>
 </head>
@@ -8,7 +9,7 @@
     <div class="col-md-8 offset-md-2">
       <div class="card">
         <img
-          src="<%= list.image.url %>"
+          src="<%= list.image.url || defaultImg %>"
           class="card-img-top show-route-img"
           alt="place view"
         />

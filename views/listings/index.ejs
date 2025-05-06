@@ -1,9 +1,10 @@
 <% layout("layouts/boilerplate") -%>
+<% let defaultImg = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/624px-No-Image-Placeholder.svg.png"%>
 <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-2 mb-3">
   <% for(listing of allListing){ %>
   <a class="list-cards" href="/listings/<%= listing._id %>">
     <div class="card">
-      <img class="card-img-top" src="<%=listing.image.url%>" alt="Card image cap" />
+      <img class="card-img-top" src="<%=listing.image.url || defaultImg%>" alt="Card image cap" />
       <div class="card-img-overlay"></div>
       <div class="card-body">
         <p class="card-text"><b><%=listing.title%></b></p>
