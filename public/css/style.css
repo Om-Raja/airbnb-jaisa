@@ -184,3 +184,10 @@ h2,h5{
     border-radius: 5px;
     padding: 10px;
 }
+
+/* responsiveness */
+@media(max-width: 576px){
+    .row{
+        margin: 0;
+    }
+}
