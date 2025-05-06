@@ -191,6 +191,12 @@ h2,h5{
     left: 80px;
     bottom: 53px;
 }
+/* singup page */
+#loginBtn{
+    position: relative;
+    bottom: 53px;
+    left: 95px;
+}
 
 /* responsiveness */
 @media(max-width: 576px){
